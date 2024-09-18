@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+<body>
+    <section class="container">
+        <div class="custom-login-container">
+            <div class="custom-circle custom-circle-one"></div>
+            <div class="custom-form-container">
+                <img src="https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png" alt="illustration" class="custom-illustration" />
+                <h1 class="custom-opacity">LOGIN</h1>
+                <form method="POST" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <input type="text" name="username" placeholder="USERNAME" value="{{ form.username.value|default_if_none:'' }}" required class="custom-input"/>
+                    {% if form.username.errors %}
+                        <div class="custom-error">{{ form.username.errors }}</div>
+                    {% endif %}
+                
+                    <input type="password" name="password" placeholder="PASSWORD" value="{{ form.password.value|default_if_none:'' }}" required class="custom-input"/>
+                    {% if form.password.errors %}
+                        <div class="custom-error">{{ form.password.errors }}</div>
+                    {% endif %}
+                
+                    <button type="submit" class="custom-opacity">Login</button>
+                </form>
+                <div class="custom-register-forget custom-opacity">
+                    <a href="{% url 'register' %}">Don't have an account?</a>
+                </div>
+            </div>
+            <div class="custom-circle custom-circle-two"></div>
+        </div>
+        <div class="custom-theme-btn-container"></div>
+    </section>
+    
+</body>
+</html>
+
+
+

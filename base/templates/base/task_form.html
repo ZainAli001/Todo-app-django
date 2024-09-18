@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if form.instance.pk %}Update Task{% else %}Create Task{% endif %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <section class="container">
+        <div class="custom-login-container">
+            <div class="custom-circle custom-circle-one"></div>
+            <div class="custom-form-container">
+                <h1 class="custom-opacity">{% if form.instance.pk %}Update Task{% else %}Create Task{% endif %}</h1>
+                <form method="POST" action="{% if form.instance.pk %}{% url 'task-update' form.instance.pk %}{% else %}{% url 'task-create' %}{% endif %}">
+                    {% csrf_token %}
+                    
+                    <!-- Title Field -->
+                    <input type="text" name="title" placeholder="TITLE" value="{{ form.title.value|default_if_none:'' }}" required class="custom-input"/>
+                    {% if form.title.errors %}
+                        <div class="custom-error">{{ form.title.errors }}</div>
+                    {% endif %}
+                    
+                    <!-- Description Field -->
+                    <textarea name="description" placeholder="DESCRIPTION" class="custom-input">{{ form.description.value|default_if_none:'' }}</textarea>
+                    {% if form.description.errors %}
+                        <div class="custom-error">{{ form.description.errors }}</div>
+                    {% endif %}
+                    
+                    <!-- Complete Checkbox -->
+                    <div class="form-check "style="margin-bottom:15px;">
+                        <input type="checkbox" name="complete" id="complete" class="form-check-input" {% if form.complete.value %}checked{% endif %}>
+                        <label for="complete" class="form-check-label">Complete</label>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <button type="submit"  class="custom-opacity">Submit</button>
+                </form>
+            </div>
+            <div class="custom-circle custom-circle-two"></div>
+        </div>
+        <div class="custom-theme-btn-container"></div>
+    </section>
+</body>
+</html>

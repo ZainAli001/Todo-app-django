@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <section class="container">
+        <div class="custom-login-container">
+            <div class="custom-circle custom-circle-one"></div>
+            <div class="custom-form-container">
+                <img src="https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png" alt="illustration" class="custom-illustration" />
+                <h1 class="custom-opacity">REGISTER</h1>
+                <form method="POST" action="{% url 'register' %}">
+                    {% csrf_token %}
+
+                    <input type="text" name="username" placeholder="USERNAME" value="{{ form.username.value|default_if_none:'' }}" required class="custom-input"/>
+                    {% if form.username.errors %}
+                        <div class="custom-error">{{ form.username.errors }}</div>
+                    {% endif %}
+
+                    <input type="email" name="email" placeholder="EMAIL" value="{{ form.email.value|default_if_none:'' }}" required class="custom-input"/>
+                    {% if form.email.errors %}
+                        <div class="custom-error">{{ form.email.errors }}</div>
+                    {% endif %}
+
+                    <input type="password" name="password1" placeholder="PASSWORD" value="{{ form.password1.value|default_if_none:'' }}" required class="custom-input"/>
+                    {% if form.password1.errors %}
+                        <div class="custom-error">{{ form.password1.errors }}</div>
+                    {% endif %}
+
+                    <input type="password" name="password2" placeholder="CONFIRM PASSWORD" value="{{ form.password2.value|default_if_none:'' }}" required class="custom-input"/>
+                    {% if form.password2.errors %}
+                        <div class="custom-error">{{ form.password2.errors }}</div>
+                    {% endif %}
+
+                    <button type="submit" class="custom-opacity">REGISTER</button>
+                </form>
+                <div class="custom-register-forget custom-opacity">
+                    <a href="{% url 'login' %}">Login if you have an account</a>
+                </div>
+            </div>
+            <div class="custom-circle custom-circle-two"></div>
+        </div>
+        <div class="custom-theme-btn-container"></div>
+    </section>
+</body>
+</html>
